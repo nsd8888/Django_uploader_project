@@ -1,0 +1,88 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    <div class="p-4 mb-2 text-center bg-secondary text-white height-100px">
+        <h1>Image Uploader</h1>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+            <input type="submit" class="btn btn-danger" value="Upload">
+            <a href="{% url 'logout' %}" class="btn btn-danger">LogOut</a>
+            <a href="{% url 'passchange' %}" class="btn btn-danger">Change Password</a>
+            <a href="{% url 'face_upload' %}" class="btn btn-danger">Upload To facebook</a>
+            <a href="{% url 'tweeter' %}" class="btn btn-danger">Upload To Tweeter</a>
+            <a href="{% url 'all_social' %}" class="btn btn-danger">All Social Post</a>
+        </form>
+    </div>
+    <div class="container-fluid bg-secondary">
+        <div class="row">
+            <div class="col-sm-3 bg-secondary">
+                <br><br><hr>
+                <table class="table bg-info table-borderless" style="width:100%">
+                    <caption class="table caption-top">User Profile</caption>
+                    <tr>
+                        <td>Username</td>
+                        <td>{{request.user}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{request.user.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{request.user.first_name}} {{request.user.last_name}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-9">
+                <div class="p-3 mb-2 text-center bg-white text-black">
+                    <div class="row">
+                        {% csrf_token %}
+                        {% for i in img %}
+                        <div class="col-sm-4">
+                            <div class="card m-2">
+                                <a href="{% url 'detail' i.id %} ">
+                                    <img src="{{i.photo.url}}" alt="" class="card-img-top">
+                                    <div class="card-footer bg-white text-black">
+                                        <small>{{i.date}}</small>
+                                    </div>
+                                </a>
+                                <div class="card-footer bg-white text-black">
+                                    <table class="bg-white text-black">
+                                        <tr>
+                                            <td>
+                                                <a href="{% url 'delete' i.id %}" class="btn btn-danger">
+                                                    <small>Delete</small>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                  <a href="{% url 'facebook_form' i.id %}" class="btn btn-danger">
+                                                    <small>Upload on facebook</small>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  </body>
+</html>
