@@ -30,8 +30,8 @@ def training_model(lst,img_search):
 
     print('img_list',img_list)
 
-    s3 = boto3.resource(service_name='s3', region_name='ap-south-1', aws_access_key_id='AKIASPAMLW6YHT7DWTTR',
-                        aws_secret_access_key='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')
+    s3 = boto3.resource(service_name='s3', region_name='ap-south-1', aws_access_key_id='',
+                        aws_secret_access_key='')
     for bucket in s3.buckets.all():
         my_bucket = s3.Bucket(bucket.name)
         c = []
