@@ -3,7 +3,7 @@
 
 Go to main-->master
 
-project name-->Cosmos2
+project name-->Cosmos2 and 
 application name-->enroll
 
 
